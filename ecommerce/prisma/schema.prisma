@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -10,4 +5,112 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+enum Material {
+  MADEIRA
+  MDF
+  ALUMINIO
+}
+
+enum Size {
+  A5
+  A4
+  A3
+  A2
+  A1
+  A0
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  SHIPPED
+  DELIVERED
+  CANCELED
+}
+
+model Canvas {
+  id            String   @id @default(cuid())
+  artistName    String
+  paintingName  String
+  size          Size
+  frameMaterial Material
+  price         Float
+  stock         Int      @default(0)
+  imageUrl      String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // É representado por um item no carrinho
+  cartItems     CartItem[]
+
+  // E também por um item que foi pedido
+  orderItems    OrderItem[]
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  password  String
+  email     String   @unique
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Possui um array de CartItem, ou seja, um carrinho
+  cart      CartItem[]
+
+  // O usuário também possui um array (um histórico) de pedidos
+  orders    Order[]
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  quantity  Int      @default(1)
+
+  // Em qual usuário/carrinho está/pertence esse item
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+
+  // O quadro desse item
+  canvas    Canvas   @relation(fields: [canvasId], references: [id])
+  canvasId  String
+
+  // Garante que, ao mudar a quantidade, uma nova linha não será adicionada
+  @@unique([userId, canvasId])
+}
+
+// Pedido do usuário
+model Order {
+  id        String      @id @default(cuid())
+  status    OrderStatus @default(PENDING)
+  total     Float
+  createdAt DateTime    @default(now())
+
+  // A qual usuário pertence esse pedido
+  user      User        @relation(fields: [userId], references: [id])
+  userId    String
+
+  // Os itens que compõem esse pedido (array de OrderItem)
+  items     OrderItem[]
+}
+
+model OrderItem {
+  id        String @id @default(cuid())
+  quantity  Int
+  price     Float // preço no MOMENTO DA COMPRA
+
+  // A qual pedido pertence esse item
+  order     Order  @relation(fields: [orderId], references: [id])
+  orderId   String
+
+  // Qual é o quadro desse pedido 
+  canvas    Canvas @relation(fields: [canvasId], references: [id])
+  canvasId  String
 }
