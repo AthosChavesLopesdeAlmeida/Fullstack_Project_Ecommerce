@@ -39,7 +39,7 @@ export const Sidebar = () => {
 
   return (
     <div>
-      <nav className="w-56 h-screen bg-[#8B5E3C] border-r border-[#D9CBB8] flex flex-col p-4 gap-1">
+      <nav className="w-56 h-screen bg-[#8B5E3C] flex flex-col p-4 gap-1">
         {links.map((link: Link) => (
           <Link 
           key={link.href}

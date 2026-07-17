@@ -21,7 +21,7 @@ export const Header = () => {
 
   return (
     <div>
-      <header className="bg-[#5C4033] border-b border-[#D9CBB8] px-6 py-4 flex items-center justify-between shadow-sm">
+      <header className="bg-[#5C4033] px-6 py-4 flex items-center justify-between shadow-sm">
         <h2 className="text-xl font-bold tracking-wide text-[#2B211A] flex items-center gap-2">
           <span className="text-[#5865f2]"></span> Canvas shop
         </h2>
