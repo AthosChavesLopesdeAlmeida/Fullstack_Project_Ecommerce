@@ -20,5 +20,6 @@ export interface Canvas {
   paintingName: string,
   stock: number,
   frameMaterial: Material,
-  size: Size
+  size: Size,
+  price: number
 }
