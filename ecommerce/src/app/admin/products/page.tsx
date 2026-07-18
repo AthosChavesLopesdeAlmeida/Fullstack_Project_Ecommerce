@@ -26,29 +26,27 @@ const Page = () => {
 
   const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault()
-    const res = await apiFetch('/api/products', {
+    const { ok, data } = await apiFetch('/api/products', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({artistName, paintingName, imageUrl, size, frameMaterial, price, stock})
+      body: JSON.stringify({ artistName, paintingName, imageUrl, size, frameMaterial, price, stock })
     })
-    router.push('/')
-    const data = await res.json()
 
-    if (!res.ok) {
-      setError(data.message)
-      return 
+    if (!ok) {
+      setError(data?.message || 'Erro ao criar produto')
+      return
     }
-
+    
     setError('')
     setArtistName('')
     setPaintingName('')
     setImageUrl('')
-
+    
     setSize(undefined)
     setFrameMaterial(undefined)
-
+    
     setStock(null)
     setPrice(null)
+    router.push('/')
   }
 
   return (

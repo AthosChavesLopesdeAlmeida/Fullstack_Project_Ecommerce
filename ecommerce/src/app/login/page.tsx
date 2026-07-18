@@ -14,9 +14,8 @@ const Page = () => {
   const router = useRouter()
   
   const fetchUserName = async () => {
-    const res = await apiFetch('/api/me', {method: 'GET'})
-    if (!res.ok) return;
-    const data = await res.json()
+    const { ok, data } = await apiFetch('/api/me', { method: 'GET' })
+    if (!ok) return;
     setUser(data)
   }
   
@@ -30,21 +29,17 @@ const Page = () => {
     }
   }, [user, router])
 
-
   const submitForm = async (e: React.SubmitEvent) => {
     e.preventDefault()
     setError('')
 
-    const res = await apiFetch('/api/auth/login', {
+    const { ok, data } = await apiFetch('/api/auth/login', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({email, password})
+      body: JSON.stringify({ email, password })
     })
 
-    const data = await res.json()
-
-    if (!res.ok) {
-      setError(data.message)
+    if (!ok) {
+      setError(data?.message || 'Erro ao fazer login')
       return 
     }
     router.push('/')

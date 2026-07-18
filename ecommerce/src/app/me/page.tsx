@@ -9,9 +9,8 @@ const Page = () => {
   const router = useRouter()
 
   const fetchUser = async () => {
-    const res = await apiFetch('/api/me', {method: 'GET'})
-    if (!res.ok) return
-    const data = await res.json()
+    const { ok, data } = await apiFetch('/api/me', { method: 'GET' })
+    if (!ok) return
     setUser(data)
   }
 
