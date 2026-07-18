@@ -24,7 +24,7 @@ export const Sidebar = () => {
 
   const links: NavLink[] = [
     { href: "/", label: "Produtos" },
-    { href: "/cart", label: "Carrinho" },
+    { href: "/cart", label: "Meu carrinho" },
     { href: "/orders", label: "Meus pedidos" },
     { href: "/me", label: "Minha conta" },
   ];

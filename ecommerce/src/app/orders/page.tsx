@@ -24,17 +24,20 @@ const Page = () => {
   }, [])
 
   return (
-    <div>
-      <div>
-
+    <div className="max-w-3xl mx-auto mt-8 px-4">
+      <div className="text-center mb-8">
+        <h2 className="text-2xl font-bold text-[#2B211A]">Seus pedidos</h2>
       </div>
 
-      <div>
+      <div className="grid grid-cols-3 gap-6">
         {orders.map((order: Order) => (
-          <div key={order.id}>
-            <h4>{new Date(order.createdAt).toLocaleDateString()}</h4>
-            <p>{order.status}</p>
-            <p>{order.total}</p>
+          <div key={order.id}
+          className="bg-[#5C4033] p-4 rounded-lg shadow-lg border border-[#D9CBB8] flex flex-col gap-2">
+
+            <h5 className="text-lg font-bold text-[#F5F1E8] mt-2">{new Date(order.createdAt).toLocaleDateString()}</h5>
+            <p className="text-sm text-[#D9CBB8]">{order.status}</p>
+            <p className="text-sm text-[#D9CBB8]">{order.total}</p>
+
           </div>
         ))}
       </div>
