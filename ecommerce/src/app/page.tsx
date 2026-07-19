@@ -74,8 +74,7 @@ const Page = () => {
 
             <button
               onClick={() => addToCart(canvas.id)}
-              className="w-full bg-[#B08D57] text-[#F5F1E8] font-medium rounded-md py-2.5 hover:bg-[#8B5E3C] active:bg-[#5C4033] transition-colors mt-2 shadow-md"
-            >
+              className="w-full bg-[#B08D57] text-[#F5F1E8] font-medium rounded-md py-2.5 hover:bg-[#8B5E3C] active:bg-[#5C4033] transition-colors mt-2 shadow-md">
               Adicionar ao carrinho
             </button>
 
