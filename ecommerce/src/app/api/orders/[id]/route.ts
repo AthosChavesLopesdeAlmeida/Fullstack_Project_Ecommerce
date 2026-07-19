@@ -11,7 +11,14 @@ export async function GET (req: NextRequest, { params }: { params: Promise<{ id:
   }
 
   const order = await prisma.order.findUnique({
-    where: {id, userId: user.userId}
+    where: {id, userId: user.userId},
+    include: {
+      items: {
+        include: {
+          canvas: true
+        }
+      }
+    }
   })
 
   if (!order) {
