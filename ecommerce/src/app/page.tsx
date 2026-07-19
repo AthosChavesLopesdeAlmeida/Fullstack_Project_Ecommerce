@@ -22,6 +22,9 @@ const Page = () => {
     setCanvas(data)
   }
 
+  const redirect = (id: string) => {
+    router.push(`/product/${id}`)
+  }
 
   const addToCart = async (canvasId: string) => {
     const { ok, status, data } = await apiFetch('/api/cart', {
@@ -57,7 +60,7 @@ const Page = () => {
           <div
             key={canvas.id}
             className="bg-[#5C4033] p-4 rounded-lg shadow-lg border border-[#D9CBB8] flex flex-col gap-2"
-          >
+            onClick={() => redirect(canvas.id)}>
             <Image
               src={canvas.imageUrl}
               alt={canvas.paintingName}
